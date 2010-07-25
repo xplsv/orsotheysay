@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>"Or so they say..." by xplsv<sup>24</sup></title>
+		<style>
+			body {
+
+				font-family: 'Georgia';
+				font-style: italic;
+				background-color: #000000;
+				color: #ffffff;
+				margin: 0px;
+				overflow: hidden;
+
+			}
+
+			a {
+
+				color: #ffffff;
+				text-decoration: none;
+
+			}
+
+			a:hover {
+
+				text-decoration: underline;
+
+			}
+		</style>
+	</head>
+	<body>
+		<audio id="audio" autobuffer>
+			<source src="files/supersole - a dream of sorts.mp3">
+		</audio>
+
+		<div id="launcher" style="padding-top: 100px; text-align: center">
+
+			"Or so they say..." by xplsv<br />
+			<span style="color: #808080" />
+			fast made javascript demo (<a href="http://github.com/mrdoob/xplsv_orsotheysay">source code</a>)<br /><br />
+			code: <a href="http://mrdoob.com">mr.doob</a><br />
+			direction: <a href="http://trace.xplsv.com">trace</a><br />
+			music: <a href="http://supersole.net">supersole</a></span><br /><br />
+
+			<br /><br />
+
+			<a href="#" onClick="start( 0 );">START</a>
+
+			<!--
+			<br /><br />
+			<a href="#" onClick="start( 0 );">PART 1</a><br />
+			<a href="#" onClick="start( 1 );">PART 2</a><br />
+			<a href="#" onClick="start( 2 );">PART 3</a><br />
+			<a href="#" onClick="start( 3 );">PART 4</a><br />
+			<a href="#" onClick="start( 4 );">PART 5</a><br />
+			<a href="#" onClick="start( 5 );">PART 6</a><br />
+			<a href="#" onClick="start( 6 );">PART 7</a><br />
+			<a href="#" onClick="start( 7 );">PART 8</a><br />
+			-->
+		</div>
+
+		<script type="text/javascript" src="js/Stats.js"></script>
+
+		<script type="text/javascript" src="js/Three.js"></script>
+		<script type="text/javascript" src="js/geometry/Sphere.js"></script>
+		<script type="text/javascript" src="js/geometry/Plane.js"></script>
+		<script type="text/javascript" src="js/geometry/Asteroid.js"></script>
+
+		<script type="text/javascript" src="js/Sequencer.js"></script>
+		<script type="text/javascript" src="js/effects/Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part1Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part2Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part3Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part4Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part5Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part6Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part7Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part8Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Part9Effect.js"></script>
+		<script type="text/javascript" src="js/effects/Vector3TravelEffect.js"></script>
+
+		<script type="text/javascript">
+
+			var SCREEN_WIDTH, SCREEN_HEIGHT,
+			sequencer, timeline, audio, cueAudioTime = 0, cueTime = 0, playing = true,
+			keys = [ 0, 6254, 31692, 55112, 74891, 109163, 133196, 165113, 198992 ],
+			container, stats;
+
+			var camera, renderer;
+
+			init();
+
+			function init() {
+
+				SCREEN_WIDTH = window.innerWidth / 2;
+				SCREEN_HEIGHT = window.innerHeight / 2;
+
+				container = document.createElement( 'div' );
+				container.style.paddingLeft = ( SCREEN_WIDTH / 2 ) + 'px';
+				container.style.paddingTop = ( SCREEN_HEIGHT / 3 ) + 'px';
+				container.style.webkitTransform = 'scale(2)';
+
+				camera = new THREE.Camera( 60, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 20000 );
+
+				renderer = new THREE.CanvasRenderer();
+				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+				renderer.autoClear = false;
+				container.appendChild( renderer.domElement );
+
+				// Timeline
+
+				sequencer = new Sequencer();
+
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 0, 0, 200 ), new THREE.Vector3( 0, 0, 10000 )  ), keys[ 0 ] - 1, keys[ 1 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3(), new THREE.Vector3() ), keys[ 0 ] - 1, keys[ 1 ] - 1 );
+				sequencer.add( new Part1Effect( camera, renderer ), keys[ 0 ], keys[ 1 ] );
+
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 0, 0, 1000 ), new THREE.Vector3( 0, 0, 400 ) ), keys[ 1 ] - 1, keys[ 2 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3(), new THREE.Vector3() ), keys[ 1 ] - 1, keys[ 2 ] - 1 );
+				sequencer.add( new Part2Effect( camera, renderer ), keys[ 1 ], keys[ 2 ] );
+
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 0, 200, 200 ), new THREE.Vector3( 0, - 200, 300 ) ), keys[ 2 ] - 1, keys[ 3 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( 200, 0, 0 ), new THREE.Vector3( - 100, 0, 300 ) ), keys[ 2 ] - 1, keys[ 3 ] - 1 );
+				sequencer.add( new Part3Effect( camera, renderer ), keys[ 2 ], keys[ 3 ] );
+
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 0, 0, - 5000 ), new THREE.Vector3( 0, 0, 4000 ) ), keys[ 3 ] - 1, keys[ 4 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( 0, 0, - 5000 ), new THREE.Vector3( 0, 0,  - 2000 ) ), keys[ 3 ] - 1, keys[ 4 ] - 1 );
+				sequencer.add( new Part4Effect( camera, renderer ), keys[ 3 ], keys[ 4 ] );
+
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 0, 1000, 2000 ), new THREE.Vector3( -100, 300, 400 ) ), keys[ 4 ] - 1, keys[ 5 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( 500,  - 500, 1000 ), new THREE.Vector3( 0, -50, 0 ) ), keys[ 4 ] - 1, keys[ 5 ] - 1 );
+				sequencer.add( new Part5Effect( camera, renderer ), keys[ 4 ], keys[ 5 ] );
+
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 500, 0, 500 ), new THREE.Vector3( 0, 500, 300 ) ), keys[ 5 ] - 1, keys[ 6 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( - 100, - 1000, 0 ), new THREE.Vector3( 100, - 100, 0 ) ), keys[ 5 ] - 1, keys[ 6 ] - 1 );
+				sequencer.add( new Part6Effect( camera, renderer ), keys[ 5 ], keys[ 6 ] );
+
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 0, 0, 300 ), new THREE.Vector3( 0, 0, 1000 ) ), keys[ 6 ] - 1, keys[ 7 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3(), new THREE.Vector3() ), keys[ 6 ] - 1, keys[ 7 ] - 1 );
+				sequencer.add( new Part7Effect( camera, renderer ), keys[ 6 ], keys[ 7 ] );
+
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 400, 0, 400 ), new THREE.Vector3( 0, 400, 800 ) ), keys[ 7 ] - 1, keys[ 8 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( 0, 100, 0 ), new THREE.Vector3( 0, - 200, 0 ) ), keys[ 7 ] - 1, keys[ 8 ] - 1 );
+				sequencer.add( new Part8Effect( camera, renderer ), keys[ 7 ], keys[ 8 ] );
+
+				sequencer.add( new Part9Effect( camera, renderer ), keys[ 8 ], keys[ 8 ] + 2000 );
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				stats.domElement.style.left = '0px';
+				stats.domElement.style.visibility = 'hidden';
+
+
+			}
+
+			function start( key ) {
+
+				document.body.removeChild( document.getElementById( 'launcher' ) );
+
+				audio = document.getElementById( 'audio' );
+				audio.currentTime = keys[ key ] / 1000;
+				audio.play();
+
+				cueAudioTime = keys[ key ];
+				cueTime = new Date().getTime();
+
+				document.body.appendChild( container );
+				document.body.appendChild( stats.domElement );
+
+				document.addEventListener( 'keydown', onDocumentKeyDown, false );
+
+				setInterval( loop, 1000 / 120 );
+			}
+
+			function onDocumentKeyDown( event ) {
+
+				switch( event.keyCode ) {
+
+					case 32:
+
+						audio.paused ? audio.play() : audio.pause();
+						playing = !audio.paused;
+						break;
+
+					case 37:
+
+						audio.currentTime -= 1;
+						break;
+
+					case 39:
+
+						audio.currentTime += 1;
+						break;
+
+					case 188:
+						stats.domElement.style.visibility = stats.domElement.style.visibility == 'hidden' ? 'visible' : 'hidden';
+						break;
+
+				}
+
+				cueTime = new Date().getTime();
+				cueAudioTime = audio.currentTime * 1000;
+
+			}
+
+			function loop() {
+
+				if ( playing ) {
+
+					sequencer.update( new Date().getTime() - cueTime + cueAudioTime );
+
+				}
+
+				stats.update();
+
+			}
+
+		</script>
+
+	</body>
+</html> 

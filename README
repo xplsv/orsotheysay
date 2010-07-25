@@ -1,0 +1,88 @@
+
+                      ..________
+   ..__        _______\         \ ________             _____..
+-- \    \_____ \       \         \       _\..___ ____ /      / - 
+-- /    /    _/_ \      \         \             \    \      / -- 
+- /____/\    \   \_______\         \__..__\      \____\    / --- 
+         \____\____ \     \         \_  \_________\/______/
+             ..     ..     \_______../               ++ xplsv
+
+
+         ---                                      ---
+                 Or so they say... by xplsv
+         ---                                      ---
+         ---                                      ---
+
+                          code.mrdoob
+                        direction.trace
+                        music.supersole
+
+         ---                                      ---
+         ---                                      ---
+                       Blah blah blah...
+         ---                                      ---
+         ---                                      ---
+
+         Long time not doing a "proper" demo...
+         I have always found unfair that browser
+         demos had to be put in a special category or
+         mixed with other works that weren't even
+         realtime.
+
+         However, this year, Euskal was including
+         browser demos in the main demo competition.
+         So I was somehow forced to contribute :)
+
+         On top of that, I've been slowly working on
+         a 3d engine and a sequencer for the past few
+         months and they seemed advanced enough to
+         give it a try.
+
+         But, of course, I wasn't able to start
+         before it was already one day before the
+         deadline. Yesterday night I was struggling
+         about what the demo should be about. In the
+         end, I decided to just start coding whatever
+         and improvise. I started around midnight and
+         I'm considering it done 12 hours later :O
+
+         It's all software rendering (no WebGL),
+         so don't expect much performance. It's
+         running at 20-30fps on my Mac Mini Core 2
+         Duo @ 2.53Ghz with Ubuntu/Linux. If you are
+         running MacOS. I'm sorry to say that it
+         won't run faster than 1fps... For some
+         reason Chrome team decided to use
+         CoreGraphics instead of Skia.
+
+         This version doesn't have any loading stuff,
+         but I guess, eventually, I'll end up
+         implementing it... while I'm at it I'll
+         probably do a WebGL version too :)
+
+         Requirements:
+
+            For better results (at this point)
+            Chrome Windows/Linux.
+
+         Software used:
+
+             Ubuntu, gEdit, Chrome, Blender, Gimp
+
+                               - mrdoob & trace.xplsv
+
+         ---                                      ---
+         ---                                      ---
+
+                          More info?
+
+         ---                                      ---
+
+                 mrdoob: http://mrdoob.com
+                  trace: http://trace.xplsv.com
+              supersole: http://supersole.net
+
+         ---                                      ---
+         ---                                      ---
+                       xplsv.com 2010
+         ---                                      ---
