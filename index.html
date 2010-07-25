@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
 		<title>"Or so they say..." by xplsv<sup>24</sup></title>
 		<style>
 			body {
@@ -31,7 +32,7 @@
 	</head>
 	<body>
 		<audio id="audio" autobuffer>
-			<source src="files/supersole - a dream of sorts.mp3">
+			<source src="files/supersole - a dream of sorts.ogg" type="audio/ogg; codecs=vorbis"> 
 		</audio>
 
 		<div id="launcher" style="padding-top: 100px; text-align: center">
@@ -99,7 +100,9 @@
 				container = document.createElement( 'div' );
 				container.style.paddingLeft = ( SCREEN_WIDTH / 2 ) + 'px';
 				container.style.paddingTop = ( SCREEN_HEIGHT / 3 ) + 'px';
-				container.style.webkitTransform = 'scale(2)';
+				container.style.WebkitTransform = 'scale(2)';
+				container.style.MozTransform = 'scale(2)';
+				container.style.OTransform = 'scale(2)';
 
 				camera = new THREE.Camera( 60, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 20000 );
 
