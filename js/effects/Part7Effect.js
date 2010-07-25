@@ -57,7 +57,7 @@ var Part7Effect = function ( camera, renderer ) {
 		mesh.position.x = Math.random() - 0.5;
 		mesh.position.y = Math.random() - 0.5;
 		mesh.position.normalize();
-		mesh.position.multiplyScalar( Math.random() * 60 + 15 );
+		mesh.position.multiplyScalar( Math.random() * 60 + 20 );
 		mesh.position.z = Math.random() * 800 + 400;
 		mesh.rotation.x = Math.random() * Math.PI;
 		mesh.rotation.y = Math.random() * Math.PI;
