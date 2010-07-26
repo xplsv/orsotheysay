@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1">
-		<title>"Or so they say..." by xplsv<sup>24</sup></title>
+		<title>"Or so they say..." by xplsv</title>
 		<style>
 			body {
 
@@ -47,7 +47,6 @@
 			<br /><br />
 
 			<a href="#" onClick="start( 0 );">START</a>
-
 			<!--
 			<br /><br />
 			<a href="#" onClick="start( 0 );">PART 1</a><br />
@@ -135,8 +134,8 @@
 				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( 500,  - 500, 1000 ), new THREE.Vector3( 0, -50, 0 ) ), keys[ 4 ] - 1, keys[ 5 ] - 1 );
 				sequencer.add( new Part5Effect( camera, renderer ), keys[ 4 ], keys[ 5 ] );
 
-				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 500, 0, 500 ), new THREE.Vector3( 0, 500, 300 ) ), keys[ 5 ] - 1, keys[ 6 ] - 1 );
-				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( - 100, - 1000, 0 ), new THREE.Vector3( 100, - 100, 0 ) ), keys[ 5 ] - 1, keys[ 6 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 500, 0, 500 ), new THREE.Vector3( 0, 200, 500 ) ), keys[ 5 ] - 1, keys[ 6 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( - 100, - 600, 0 ), new THREE.Vector3( 50, - 100, 0 ) ), keys[ 5 ] - 1, keys[ 6 ] - 1 );
 				sequencer.add( new Part6Effect( camera, renderer ), keys[ 5 ], keys[ 6 ] );
 
 				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 0, 0, 300 ), new THREE.Vector3( 0, 0, 1000 ) ), keys[ 6 ] - 1, keys[ 7 ] - 1 );
