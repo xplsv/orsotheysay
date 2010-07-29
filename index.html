@@ -31,35 +31,6 @@
 		</style>
 	</head>
 	<body>
-		<audio id="audio" autobuffer>
-			<source src="files/supersole - a dream of sorts.ogg" type="audio/ogg; codecs=vorbis"> 
-		</audio>
-
-		<div id="launcher" style="padding-top: 100px; text-align: center">
-
-			"Or so they say..." by xplsv<br />
-			<span style="color: #808080">
-			fastmade javascript demo<br /><br />
-
-			code: <a href="http://mrdoob.com">mr.doob</a><br />
-			direction: <a href="http://trace.xplsv.com">trace</a><br />
-			music: <a href="http://supersole.net">supersole</a><br /><br />
-
-			<a href="README" target="_blank">readme</a>, <a href="http://mrdoob.com/blog/post/702" target="_blank">blog post</a>, <a href="http://github.com/mrdoob/xplsv_orsotheysay" target="_blank">source code</a>, <a href="http://capped.tv/xplsv-or_so_they_say" target="_blank">video</a></span><br /><br /><br /><br />
-
-			<a href="#" onClick="start( 0 );">START</a>
-			<!--
-			<br /><br />
-			<a href="#" onClick="start( 0 );">PART 1</a><br />
-			<a href="#" onClick="start( 1 );">PART 2</a><br />
-			<a href="#" onClick="start( 2 );">PART 3</a><br />
-			<a href="#" onClick="start( 3 );">PART 4</a><br />
-			<a href="#" onClick="start( 4 );">PART 5</a><br />
-			<a href="#" onClick="start( 5 );">PART 6</a><br />
-			<a href="#" onClick="start( 6 );">PART 7</a><br />
-			<a href="#" onClick="start( 7 );">PART 8</a><br />
-			-->
-		</div>
 
 		<script type="text/javascript" src="js/Stats.js"></script>
 
@@ -83,8 +54,7 @@
 
 		<script type="text/javascript">
 
-			var SCREEN_WIDTH, SCREEN_HEIGHT,
-			sequencer, timeline, audio, cueAudioTime = 0, cueTime = 0, playing = true,
+			var sequencer, timeline, audio, cueAudioTime = 0, cueTime = 0, playing = true,
 			keys = [ 0, 6254, 31692, 55112, 74891, 109163, 133196, 165113, 198992 ],
 			container, stats;
 
@@ -94,22 +64,26 @@
 
 			function init() {
 
-				SCREEN_WIDTH = window.innerWidth / 2;
-				SCREEN_HEIGHT = window.innerHeight / 2;
-
 				container = document.createElement( 'div' );
-				container.style.paddingLeft = ( SCREEN_WIDTH / 2 ) + 'px';
-				container.style.paddingTop = ( SCREEN_HEIGHT / 3 ) + 'px';
 				container.style.WebkitTransform = 'scale(2)';
 				container.style.MozTransform = 'scale(2)';
 				container.style.OTransform = 'scale(2)';
 
-				camera = new THREE.Camera( 60, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 20000 );
+				camera = new THREE.Camera( 60, 800 / 600, 1, 20000 );
 
 				renderer = new THREE.CanvasRenderer();
-				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+				renderer.setSize( 800, 600 );
 				renderer.autoClear = false;
 				container.appendChild( renderer.domElement );
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				stats.domElement.style.left = '0px';
+				stats.domElement.style.visibility = 'hidden';
+
+				onWindowResize();
+				window.addEventListener( 'resize', onWindowResize, false );
 
 				// Timeline
 
@@ -148,13 +122,6 @@
 				sequencer.add( new Part8Effect( camera, renderer ), keys[ 7 ], keys[ 8 ] );
 
 				sequencer.add( new Part9Effect( camera, renderer ), keys[ 8 ], keys[ 8 ] + 2000 );
-
-				stats = new Stats();
-				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
-				stats.domElement.style.left = '0px';
-				stats.domElement.style.visibility = 'hidden';
-
 
 			}
 
@@ -208,6 +175,23 @@
 
 			}
 
+			function onWindowResize( event ) {
+
+				var width = window.innerWidth / 2,
+				height = window.innerHeight / 2;
+
+				container.style.paddingLeft = ( width / 2 ) + 'px';
+				container.style.paddingTop = ( height / 3 ) + 'px';
+
+				camera.projectionMatrix = THREE.Matrix4.makePerspective( 60, width / height, 1, 20000 );
+
+				var blending = renderer.domElement.getContext( '2d' ).globalCompositeOperation;
+
+				renderer.setSize( width, height );
+				renderer.domElement.getContext( '2d' ).globalCompositeOperation = blending;
+
+			}
+
 			function loop() {
 
 				if ( playing ) {
@@ -221,6 +205,37 @@
 			}
 
 		</script>
+
+		<audio id="audio" autobuffer>
+			<source src="files/supersole - a dream of sorts.ogg" type="audio/ogg; codecs=vorbis"> 
+		</audio>
+
+		<div id="launcher" style="padding-top: 100px; text-align: center">
+
+			"Or so they say..." by xplsv<br />
+			<span style="color: #808080">
+			fastmade javascript demo<br /><br />
+
+			code: <a href="http://mrdoob.com">mr.doob</a><br />
+			direction: <a href="http://trace.xplsv.com">trace</a><br />
+			music: <a href="http://supersole.net">supersole</a><br /><br />
+
+			<a href="README" target="_blank">readme</a>, <a href="http://mrdoob.com/blog/post/702" target="_blank">blog post</a>, <a href="http://github.com/mrdoob/xplsv_orsotheysay" target="_blank">source code</a>, <a href="http://capped.tv/xplsv-or_so_they_say" target="_blank">video</a></span><br /><br /><br /><br />
+
+			<span style="cursor:pointer" onClick="start( 0 );">START</span>
+
+			<!--
+			<br /><br />
+			<a href="#" onClick="start( 0 );">PART 1</a><br />
+			<a href="#" onClick="start( 1 );">PART 2</a><br />
+			<a href="#" onClick="start( 2 );">PART 3</a><br />
+			<a href="#" onClick="start( 3 );">PART 4</a><br />
+			<a href="#" onClick="start( 4 );">PART 5</a><br />
+			<a href="#" onClick="start( 5 );">PART 6</a><br />
+			<a href="#" onClick="start( 6 );">PART 7</a><br />
+			<a href="#" onClick="start( 7 );">PART 8</a><br />
+			-->
+		</div>
 
 	</body>
 </html> 
