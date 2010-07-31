@@ -69,9 +69,6 @@
 			function init() {
 
 				container = document.createElement( 'div' );
-				container.style.WebkitTransform = 'scale(2)';
-				container.style.MozTransform = 'scale(2)';
-				container.style.OTransform = 'scale(2)';
 
 				camera = new THREE.Camera( 60, 800 / 600, 1, 20000 );
 
@@ -184,14 +181,13 @@
 				var width = window.innerWidth / 2,
 				height = window.innerHeight / 2;
 
-				container.style.paddingLeft = ( width / 2 ) + 'px';
-				container.style.paddingTop = ( height / 3 ) + 'px';
-
 				camera.projectionMatrix = THREE.Matrix4.makePerspective( 60, width / height, 1, 20000 );
 
 				var blending = renderer.domElement.getContext( '2d' ).globalCompositeOperation;
 
 				renderer.setSize( width, height );
+				renderer.domElement.style.width = window.innerWidth + 'px';
+				renderer.domElement.style.height = window.innerHeight + 'px';
 				renderer.domElement.getContext( '2d' ).globalCompositeOperation = blending;
 
 			}
