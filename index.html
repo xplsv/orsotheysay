@@ -118,8 +118,8 @@
 				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3(), new THREE.Vector3() ), keys[ 6 ] - 1, keys[ 7 ] - 1 );
 				sequencer.add( new Part7Effect( camera, renderer ), keys[ 6 ], keys[ 7 ] );
 
-				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 400, 0, 400 ), new THREE.Vector3( 0, 400, 800 ) ), keys[ 7 ] - 1, keys[ 8 ] - 1 );
-				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( 0, 100, 0 ), new THREE.Vector3( 0, - 200, 0 ) ), keys[ 7 ] - 1, keys[ 8 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.position, new THREE.Vector3( 400, 0, 400 ), new THREE.Vector3( 0, 200, 800 ) ), keys[ 7 ] - 1, keys[ 8 ] - 1 );
+				sequencer.add( new Vector3TravelEffect( camera.target.position, new THREE.Vector3( 0, 100, 0 ), new THREE.Vector3( 0, - 100, 0 ) ), keys[ 7 ] - 1, keys[ 8 ] - 1 );
 				sequencer.add( new Part8Effect( camera, renderer ), keys[ 7 ], keys[ 8 ] );
 
 				sequencer.add( new Part9Effect( camera, renderer ), keys[ 8 ], keys[ 8 ] + 2000 );
@@ -220,7 +220,6 @@
 
 			<span style="cursor:pointer" onClick="start( 0 );">START</span>
 
-			<!--
 			<br /><br />
 			<a href="#" onClick="start( 0 );">PART 1</a><br />
 			<a href="#" onClick="start( 1 );">PART 2</a><br />
@@ -230,7 +229,7 @@
 			<a href="#" onClick="start( 5 );">PART 6</a><br />
 			<a href="#" onClick="start( 6 );">PART 7</a><br />
 			<a href="#" onClick="start( 7 );">PART 8</a><br />
-			-->
+
 		</div>
 
 	</body>

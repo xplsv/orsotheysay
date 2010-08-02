@@ -18,7 +18,7 @@ var Part8Effect = function ( camera, renderer ) {
 	scene1.addObject( particle );
 
 	particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/atmosphere.png' ) );
-	particle.scale.x = particle.scale.y = 2.2;
+	particle.scale.x = particle.scale.y = 2.1;
 	scene1.addObject( particle );
 
 	for (var i = 0; i < 1000; i++) {
@@ -34,10 +34,9 @@ var Part8Effect = function ( camera, renderer ) {
 	mesh = new THREE.Mesh( new Sphere( 200, 20, 20 ), loadImage( new THREE.MeshBitmapUVMappingMaterial(), 'files/textures/earth.jpg' ) );
 	scene2.addObject( mesh );
 
-	particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/shade.png' ) );
-	particle.scale.x = particle.scale.y = 1.65;
+	particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/atmosphere2.png' ) );
+	particle.scale.x = particle.scale.y = 2.29;
 	scene3.addObject( particle );
-
 
 	//
 
@@ -61,7 +60,7 @@ var Part8Effect = function ( camera, renderer ) {
 
 	this.show = function () {
 
-		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'source-over';
+		
 
 	};
 
@@ -70,10 +69,12 @@ var Part8Effect = function ( camera, renderer ) {
 		mesh.rotation.y = time * 0.5 + 2;
 
 		renderer.clear();
+		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'lighter';
 		renderer.render( scene1, camera );
+		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'source-over';
 		renderer.render( scene2, camera );
+		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'lighter';
 		renderer.render( scene3, camera );
-
 	};
 
 };
