@@ -21,7 +21,7 @@ var Part5Effect = function ( camera, renderer ) {
 	}
 
 	material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova.png' );
-	material2 = loadImage( new THREE.MeshBitmapUVMappingMaterial(), 'files/textures/galaxy.jpg' );
+	material2 = loadImage( new THREE.MeshBitmapMaterial(), 'files/textures/galaxy.jpg' );
 
 	galaxies = [];
 

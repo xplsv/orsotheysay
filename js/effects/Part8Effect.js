@@ -31,7 +31,7 @@ var Part8Effect = function ( camera, renderer ) {
 		scene2.addObject( particle );
 	}
 
-	mesh = new THREE.Mesh( new Sphere( 200, 20, 20 ), loadImage( new THREE.MeshBitmapUVMappingMaterial(), 'files/textures/earth.jpg' ) );
+	mesh = new THREE.Mesh( new Sphere( 200, 20, 20 ), loadImage( new THREE.MeshBitmapMaterial(), 'files/textures/earth.jpg' ) );
 	scene2.addObject( mesh );
 
 	particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/atmosphere2.png' ) );
