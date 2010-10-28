@@ -1,3 +1,7 @@
+/**
+ * @author mr.doob / http://mrdoob.com/
+ */
+
 var Sequencer = function () {
 
 	var _effect,
@@ -15,6 +19,8 @@ var Sequencer = function () {
 		effect.__start_time = start_time;
 		effect.__duration = end_time - start_time;
 		effect.__end_time = end_time;
+
+		effect.init();
 
 		_effects.push( effect );
 		_effects.sort( function ( a, b ) { return a.__start_time - b.__start_time; } );
@@ -46,8 +52,6 @@ var Sequencer = function () {
 
 			if ( !effect.__active && effect.__end_time > time ) {
 
-				// console.log( "Adding effect: " + effect );
-
 				effect.show();
 				effect.__active = true;
 
@@ -70,8 +74,6 @@ var Sequencer = function () {
 			}
 
 			if ( effect.__active ) {
-
-				// console.log( "Removing effect: " + effect );
 
 				effect.__active = false;
 				effect.hide();
@@ -111,7 +113,7 @@ var Sequencer = function () {
 			_effect = _effectsActive[ 0 ];
 			_effect.__active = false;
 			_effect.hide();
-			_effectsActive.splice(0, 1);
+			_effectsActive.splice( 0, 1 );
 
 		}
 

@@ -2,74 +2,72 @@ var Part3Effect = function ( camera, renderer ) {
 
 	Effect.call( this );
 
-	// Init
-
 	var vector, particles, particle, material, material2, scene;
 
-	vector = new THREE.Vector3();
-	scene = new THREE.Scene();
+	this.init = function () {
 
-	particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova.png' ) );
-	scene.addObject( particle );
+		vector = new THREE.Vector3();
+		scene = new THREE.Scene();
 
-	material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova_particle.png' );
-	material2 = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/galaxy32.png' );
+		particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova.png' ) );
+		scene.addObject( particle );
 
-	particles = [];
+		material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova_particle.png' );
+		material2 = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/galaxy32.png' );
 
-	for ( var i = 0; i < 1000; i++ ) {
+		particles = [];
 
-		var galaxy = Math.random() > 0.9;
+		for ( var i = 0; i < 1000; i++ ) {
 
-		particle = particles[ i ] = new THREE.Particle( galaxy ? material2 : material );
-		particle.position.x = Math.random() - 0.5;
-		particle.position.y = Math.random() - 0.5;
-		particle.position.z = Math.random() - 0.5;
-		particle.position.normalize();
-		particle.position.multiplyScalar( Math.random() * Math.random() * Math.random() * 200 + 50 );
+			var galaxy = Math.random() > 0.9;
 
-		particle.data = { start: new THREE.Vector3(), change: new THREE.Vector3() };
-		particle.data.start.copy( particle.position ) ;
+			particle = particles[ i ] = new THREE.Particle( galaxy ? material2 : material );
+			particle.position.x = Math.random() - 0.5;
+			particle.position.y = Math.random() - 0.5;
+			particle.position.z = Math.random() - 0.5;
+			particle.position.normalize();
+			particle.position.multiplyScalar( Math.random() * Math.random() * Math.random() * 200 + 50 );
 
-		particle.data.change.copy( particle.position );
-		particle.data.change.normalize();
-		particle.data.change.multiplyScalar( Math.random() * 400 );
-		particle.data.change.addSelf( particle.position );
+			particle.data = { start: new THREE.Vector3(), change: new THREE.Vector3() };
+			particle.data.start.copy( particle.position ) ;
 
-		if ( galaxy ) {
+			particle.data.change.copy( particle.position );
+			particle.data.change.normalize();
+			particle.data.change.multiplyScalar( Math.random() * 400 );
+			particle.data.change.addSelf( particle.position );
 
-			particle.scale.x = Math.random() * 0.1 + 0.05;
-			particle.scale.y = Math.random() * 0.1 + 0.05;
-			particle.rotation.z = Math.random() * Math.PI;
+			if ( galaxy ) {
 
-		} else {
+				particle.scale.x = Math.random() * 0.1 + 0.05;
+				particle.scale.y = Math.random() * 0.1 + 0.05;
+				particle.rotation.z = Math.random() * Math.PI;
 
-			particle.scale.x = particle.scale.y = Math.random() * 0.2;
+			} else {
+
+				particle.scale.x = particle.scale.y = Math.random() * 0.2;
+
+			}
+
+			scene.addObject( particle );
+		}
+
+		function loadImage( material, path ) {
+
+			var image = new Image();
+
+			image.onload = function () {
+
+				material.bitmap = this;
+
+			};
+
+			image.src = path;
+
+			return material;
 
 		}
 
-		scene.addObject( particle );
-	}
-
-	//
-
-	function loadImage( material, path ) {
-
-		var image = new Image();
-
-		image.onload = function () {
-
-			material.bitmap = this;
-
-		};
-
-		image.src = path;
-
-		return material;
-
-	}
-
-	//
+	};
 
 	this.show = function () {
 

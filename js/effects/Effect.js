@@ -1,5 +1,9 @@
 var Effect = function () {
 
+	this.init = function () {
+
+	};
+
 	this.load = function () {
 
 	};

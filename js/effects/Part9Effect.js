@@ -2,8 +2,6 @@ var Part9Effect = function ( camera, renderer ) {
 
 	Effect.call( this );
 
-	// Init
-
 	this.show = function () {
 
 		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'source-over';
