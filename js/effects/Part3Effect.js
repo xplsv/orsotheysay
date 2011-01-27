@@ -2,18 +2,24 @@ var Part3Effect = function ( camera, renderer ) {
 
 	Effect.call( this );
 
-	var vector, particles, particle, material, material2, scene;
+	var cameraPath, cameraTargetPath, vector, particles, particle, material, material2, scene;
 
 	this.init = function () {
+
+		cameraPath = { start: new THREE.Vector3( 0, 200, 200 ), end: new THREE.Vector3( 0, - 200, 300 ), change: new THREE.Vector3() };
+		cameraPath.change.sub( cameraPath.end, cameraPath.start );
+
+		cameraTargetPath = { start: new THREE.Vector3( 200, 0, 0 ), end: new THREE.Vector3( - 100, 0, 300 ), change: new THREE.Vector3() };
+		cameraTargetPath.change.sub( cameraTargetPath.end, cameraTargetPath.start );
 
 		vector = new THREE.Vector3();
 		scene = new THREE.Scene();
 
-		particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova.png' ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova.png' ), blending: THREE.AdditiveBlending } ) );
 		scene.addObject( particle );
 
-		material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova_particle.png' );
-		material2 = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/galaxy32.png' );
+		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
+		material2 = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/galaxy32.png' ), blending: THREE.AdditiveBlending } );
 
 		particles = [];
 
@@ -51,44 +57,29 @@ var Part3Effect = function ( camera, renderer ) {
 			scene.addObject( particle );
 		}
 
-		function loadImage( material, path ) {
-
-			var image = new Image();
-
-			image.onload = function () {
-
-				material.bitmap = this;
-
-			};
-
-			image.src = path;
-
-			return material;
-
-		}
-
 	};
 
-	this.show = function () {
+	this.update = function ( k ) {
 
-		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'lighter';
+		camera.position.copy( cameraPath.change );
+		camera.position.multiplyScalar( k );
+		camera.position.addSelf( cameraPath.start );
 
-	};
-
-	this.update = function ( time ) {
+		camera.target.position.copy( cameraTargetPath.change );
+		camera.target.position.multiplyScalar( k );
+		camera.target.position.addSelf( cameraTargetPath.start );
 
 		for ( var i = 0, l = particles.length; i < l; i++ ) {
 
 			particle = particles[ i ];
 
 			vector.copy( particle.data.change );
-			vector.multiplyScalar( time );
+			vector.multiplyScalar( k );
 
 			particle.position.add( particle.data.start, vector );
 
 		}
 
-		renderer.clear();
 		renderer.render( scene, camera );
 
 	};

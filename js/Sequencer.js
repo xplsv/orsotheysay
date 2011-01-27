@@ -1,7 +1,3 @@
-/**
- * @author mr.doob / http://mrdoob.com/
- */
-
 var Sequencer = function () {
 
 	var _effect,
@@ -11,14 +7,17 @@ var Sequencer = function () {
 
 	_nextEffect = 0,
 	_nextEffectToRemove = 0,
-	_time = 0;
+	_time = 0,
 
-	this.add = function ( effect, start_time, end_time ) {
+	_layersNeedSorting = false;
+
+	this.add = function ( effect, start_time, end_time, layer ) {
 
 		effect.__active = false;
 		effect.__start_time = start_time;
 		effect.__duration = end_time - start_time;
 		effect.__end_time = end_time;
+		effect.__layer = layer;
 
 		effect.init();
 
@@ -57,9 +56,11 @@ var Sequencer = function () {
 
 				_effectsActive.push( effect );
 
+				_layersNeedSorting = true;
+
 			}
 
-			_nextEffect += 1;
+			_nextEffect ++;
 
 		}
 
@@ -75,20 +76,27 @@ var Sequencer = function () {
 
 			if ( effect.__active ) {
 
-				effect.__active = false;
 				effect.hide();
+				effect.__active = false;
 
-				for ( var i = 0, l = _effectsActive.length; i < l; i++ ) {
+				var i = _effectsActive.indexOf( effect );
 
-					if ( effect == _effectsActive[ i ] ) {
+				if ( i !== -1 ) {
 
-						_effectsActive.splice(i, 1);
-					}
+					_effectsActive.splice( i, 1 );
+
 				}
 
 			}
 
-			_nextEffectToRemove += 1;
+			_nextEffectToRemove ++;
+
+		}
+
+		if ( _layersNeedSorting ) {
+
+			_effectsActive.sort( function ( a, b ) { return a.__layer - b.__layer; } );
+			_layersNeedSorting = false;
 
 		}
 

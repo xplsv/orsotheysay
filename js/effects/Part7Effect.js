@@ -2,23 +2,22 @@ var Part7Effect = function ( camera, renderer ) {
 
 	Effect.call( this );
 
-	var context, asteroids, particle, geometry, mesh, material, scene1, scene2;
+	var cameraPath, context, asteroids, particle, geometry, mesh, material, scene1, scene2;
 
 	this.init = function () {
+
+		cameraPath = { start: new THREE.Vector3( 0, 0, 300 ), end: new THREE.Vector3( 0, 0, 1000 ), change: new THREE.Vector3() };
+		cameraPath.change.sub( cameraPath.end, cameraPath.start );
 
 		scene1 = new THREE.Scene();
 		scene2 = new THREE.Scene();
 		scene3 = new THREE.Scene();
 
-		particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/sun.png' ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/sun.png' ), blending: THREE.AdditiveBlending } ) );
 		particle.scale.x = particle.scale.y = 5;
 		scene1.addObject( particle );
 
-		particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/sun2.png' ) );
-		particle.scale.x = particle.scale.y = 3;
-		scene3.addObject( particle );
-
-		material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova_particle.png' );
+		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
 
 		for (var i = 0; i < 1000; i++) {
 
@@ -30,7 +29,7 @@ var Part7Effect = function ( camera, renderer ) {
 			scene1.addObject( particle );
 		}
 
-		material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/asteroid.png' );
+		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/asteroid.png' ) } );
 
 		for (var i = 0; i < 200; i++) {
 
@@ -48,7 +47,7 @@ var Part7Effect = function ( camera, renderer ) {
 		asteroids = [];
 
 		geometry = new Asteroid();
-		material = new THREE.MeshColorFillMaterial( 0x000000 );
+		material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 
 		for (var i = 0; i < 20; i++) {
 
@@ -67,47 +66,34 @@ var Part7Effect = function ( camera, renderer ) {
 
 		}
 
-		function loadImage( material, path ) {
-
-			var image = new Image();
-
-			image.onload = function () {
-
-				material.bitmap = this;
-
-			};
-
-			image.src = path;
-
-			return material;
-
-		}
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/sun2.png' ), blending: THREE.AdditiveBlending } ) );
+		particle.scale.x = particle.scale.y = 3;
+		scene3.addObject( particle );
 
 	};
 
 	this.show = function () {
 
-		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'lighter';
+		camera.target.position.set( 0, 0, 0 );
 
 	};
 
-	this.update = function ( time ) {
+	this.update = function ( k ) {
+
+		camera.position.copy( cameraPath.change );
+		camera.position.multiplyScalar( k );
+		camera.position.addSelf( cameraPath.start );
 
 		for ( var i = 0, l = asteroids.length; i < l; i ++ ) {
 
 			mesh = asteroids[ i ];
-			mesh.rotation.x = i + time * 2;
-			mesh.rotation.y = i - time * 2;
-			mesh.rotation.z = i + time * 2;
+			mesh.rotation.x = i + k * 2;
+			mesh.rotation.y = i - k * 2;
+			mesh.rotation.z = i + k * 2;
 
 		}
 
-		renderer.clear();
-
-		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'lighter';
 		renderer.render( scene1, camera );
-
-		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'source-over';
 		renderer.render( scene2, camera );
 		renderer.render( scene3, camera );
 	};

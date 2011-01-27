@@ -2,13 +2,19 @@ var Part4Effect = function ( camera, renderer ) {
 
 	Effect.call( this );
 
-	var scene, cube, particle, galaxies, mesh, material, material2;
+	var cameraPath, cameraTargetPath, scene, cube, particle, galaxies, mesh, material, material2;
 
 	this.init = function () {
 
+		cameraPath = { start: new THREE.Vector3( 0, 0, - 5000 ), end: new THREE.Vector3( 0, 0, 4000 ), change: new THREE.Vector3() };
+		cameraPath.change.sub( cameraPath.end, cameraPath.start );
+
+		cameraTargetPath = { start: new THREE.Vector3( 0, 0, - 5000 ), end: new THREE.Vector3( 0, 0,  - 2000 ), change: new THREE.Vector3() };
+		cameraTargetPath.change.sub( cameraTargetPath.end, cameraTargetPath.start );
+
 		scene = new THREE.Scene();
 
-		material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova_particle.png' );
+		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
 
 		for (var i = 0; i < 500; i++) {
 
@@ -20,8 +26,8 @@ var Part4Effect = function ( camera, renderer ) {
 			scene.addObject( particle );
 		}
 
-		material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova.png' );
-		material2 = loadImage( new THREE.MeshBitmapMaterial(), 'files/textures/galaxy.jpg' );
+		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova.png' ), blending: THREE.AdditiveBlending } );
+		material2 = new THREE.MeshBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/galaxy.jpg' ), blending: THREE.AdditiveBlending } );
 
 		galaxies = [];
 
@@ -44,40 +50,25 @@ var Part4Effect = function ( camera, renderer ) {
 
 		}
 
-		function loadImage( material, path ) {
-
-			var image = new Image();
-
-			image.onload = function () {
-
-				material.bitmap = this;
-
-			};
-
-			image.src = path;
-
-			return material;
-
-		}
-
 	};
 
-	this.show = function () {
+	this.update = function ( k ) {
 
-		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'lighter';
+		camera.position.copy( cameraPath.change );
+		camera.position.multiplyScalar( k );
+		camera.position.addSelf( cameraPath.start );
 
-	};
-
-	this.update = function ( time ) {
+		camera.target.position.copy( cameraTargetPath.change );
+		camera.target.position.multiplyScalar( k );
+		camera.target.position.addSelf( cameraTargetPath.start );
 
 		for ( var i = 0; i < 100; i ++ ) {
 
 			mesh = galaxies[ i ];
-			mesh.rotation.z = - time * 2;
+			mesh.rotation.z = - k * 2;
 
 		}
 
-		renderer.clear();
 		renderer.render( scene, camera );
 
 	};

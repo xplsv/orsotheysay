@@ -2,16 +2,22 @@ var Part6Effect = function ( camera, renderer ) {
 
 	Effect.call( this );
 
-	var particle, line, material, material2, scene,
+	var cameraPath, cameraTargetPath, particle, line, material, material2, scene,
 	greetings = ["Ate Bit", "ASD", "CNCD", "DNA", "Evoflash", "Fairlight", "Farbrausch", "Orange", "Ozone", "Quite", "Rgba", "Satori", "Spöntz", "SQNY", "Still", "Tpolm"];
 
 	this.init = function () {
 
+		cameraPath = { start: new THREE.Vector3( 500, 0, 500 ), end: new THREE.Vector3( 0, 200, 500 ), change: new THREE.Vector3() };
+		cameraPath.change.sub( cameraPath.end, cameraPath.start );
+
+		cameraTargetPath = { start: new THREE.Vector3( - 100, - 600, 0 ), end: new THREE.Vector3( 50, - 100, 0 ), change: new THREE.Vector3() };
+		cameraTargetPath.change.sub( cameraTargetPath.end, cameraTargetPath.start );
+
 		scene = new THREE.Scene();
 
-		material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova_particle.png' );
+		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
 
-		for (var i = 0; i < 1000; i++) {
+		for ( var i = 0; i < 1000; i ++ ) {
 
 			particle = new THREE.Particle( material );
 			particle.position.x = Math.random() * 4000 - 2000;
@@ -21,11 +27,11 @@ var Part6Effect = function ( camera, renderer ) {
 			scene.addObject( particle );
 		}
 
-		particle = new THREE.Particle( loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/sun.png' ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/sun.png' ), blending: THREE.AdditiveBlending } ) );
 		scene.addObject( particle );
 
-		material = new THREE.LineColorMaterial( 0x008080, 1 );
-		material2 = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/line_planet.png' );
+		material = new THREE.LineBasicMaterial( { color: 0x008080, opacity: 1, blending: THREE.AdditiveBlending } );
+		material2 = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/line_planet.png' ), blending: THREE.AdditiveBlending } );
 
 		for ( var j = 0; j < greetings.length; j ++ ) {
 
@@ -53,7 +59,7 @@ var Part6Effect = function ( camera, renderer ) {
 			particle.scale.x = particle.scale.y = 0.5;
 			scene.addObject( particle );
 
-			var textMaterial = new THREE.ParticleBitmapMaterial( createTextImage( greetings[ j ] ) );
+			var textMaterial = new THREE.ParticleBasicMaterial( { map: new THREE.Texture( createTextImage( greetings[ j ] ) ), blending: THREE.AdditiveBlending } );
 			textMaterial.offset.y = 35;
 
 			particle = new THREE.Particle( textMaterial );
@@ -69,7 +75,8 @@ var Part6Effect = function ( camera, renderer ) {
 
 			var canvas = document.createElement( 'canvas' );
 			canvas.width = 150;
-			canvas.height = 35;
+			canvas.height = 85;
+			canvas.loaded = true;
 
 			var context = canvas.getContext( '2d' );
 			context.font = "30px Georgia";
@@ -80,33 +87,18 @@ var Part6Effect = function ( camera, renderer ) {
 			return canvas;
 		}
 
-		function loadImage( material, path ) {
-
-			var image = new Image();
-
-			image.onload = function () {
-
-				material.bitmap = this;
-
-			};
-
-			image.src = path;
-
-			return material;
-
-		}
-
 	};
 
-	this.show = function () {
+	this.update = function ( k ) {
 
-		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'lighter';
+		camera.position.copy( cameraPath.change );
+		camera.position.multiplyScalar( k );
+		camera.position.addSelf( cameraPath.start );
 
-	};
+		camera.target.position.copy( cameraTargetPath.change );
+		camera.target.position.multiplyScalar( k );
+		camera.target.position.addSelf( cameraTargetPath.start );
 
-	this.update = function ( time ) {
-
-		renderer.clear();
 		renderer.render( scene, camera );
 
 	};

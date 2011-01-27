@@ -2,18 +2,20 @@ var Part1Effect = function ( camera, renderer ) {
 
 	Effect.call( this );
 
-	var vector, particles, particle, material, scene;
+	var cameraPath, scene, particles, particle, material;
 
 	this.init = function () {
 
-		vector = new THREE.Vector3();
+		cameraPath = { start: new THREE.Vector3( 0, 0, 200 ), end: new THREE.Vector3( 0, 0, 10000 ), change: new THREE.Vector3() };
+		cameraPath.change.sub( cameraPath.end, cameraPath.start );
 
 		scene = new THREE.Scene();
-		material = loadImage( new THREE.ParticleBitmapMaterial(), 'files/textures/nova_particle.png' );
 
 		particles = [];
 
-		for (var i = 0; i < 1000; i++) {
+		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
+
+		for ( var i = 0; i < 1000; i ++ ) {
 
 			particles[ i ] = particle = new THREE.Particle( material );
 			particle.position.x = Math.random() - 0.5;
@@ -23,21 +25,6 @@ var Part1Effect = function ( camera, renderer ) {
 			particle.position.multiplyScalar( Math.random() * 1000 + 100 );
 			particle.scale.x = particle.scale.y = Math.random() * 0.5;
 			scene.addObject( particle );
-		}
-
-		function loadImage( material, path ) {
-
-			var image = new Image();
-
-			image.onload = function () {
-
-				material.bitmap = this;
-
-			};
-
-			image.src = path;
-
-			return material;
 
 		}
 
@@ -45,13 +32,16 @@ var Part1Effect = function ( camera, renderer ) {
 
 	this.show = function () {
 
-		renderer.domElement.getContext( '2d' ).globalCompositeOperation = 'lighter';
+		camera.target.position.set( 0, 0, 0 );
 
 	};
 
-	this.update = function ( time ) {
+	this.update = function ( k ) {
 
-		renderer.clear();
+		camera.position.copy( cameraPath.change );
+		camera.position.multiplyScalar( k );
+		camera.position.addSelf( cameraPath.start );
+
 		renderer.render( scene, camera );
 
 	};
