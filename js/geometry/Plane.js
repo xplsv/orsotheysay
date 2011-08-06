@@ -41,12 +41,12 @@ var Plane = function ( width, height, segments_width, segments_height ) {
 			var d = ( ix + 1 ) + gridX1 * iy;
 
 			this.faces.push( new THREE.Face4( a, b, c, d ) );
-			this.uvs.push( [
+			this.faceVertexUvs[ 0 ].push( [
 						new THREE.UV( ix / gridX, iy / gridY ),
 						new THREE.UV( ix / gridX, ( iy + 1 ) / gridY ),
 						new THREE.UV( ( ix + 1 ) / gridX, ( iy + 1 ) / gridY ),
 						new THREE.UV( ( ix + 1 ) / gridX, iy / gridY )
-					] );
+					 ] );
 
 		}
 
@@ -54,9 +54,9 @@ var Plane = function ( width, height, segments_width, segments_height ) {
 
 	this.computeCentroids();
 	this.computeFaceNormals();
-	this.sortFacesByMaterial();
 
 };
+
 
 Plane.prototype = new THREE.Geometry();
 Plane.prototype.constructor = Plane;

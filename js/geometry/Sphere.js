@@ -72,14 +72,14 @@ var Sphere = function ( radius, segments_width, segments_height ) {
 				if ( j < ( aVtc.length - 1 ) ) {
 
 					this.faces.push( new THREE.Face3( aP1, aP2, aP3 ) );
-					this.uvs.push( [ aP1uv, aP2uv, aP3uv ] );
+					this.faceVertexUvs[ 0 ].push( [ aP1uv, aP2uv, aP3uv ] );
 
 				}
 
 				if ( j > 1 ) {
 
 					this.faces.push( new THREE.Face3( aP1, aP3, aP4 ) );
-					this.uvs.push( [ aP1uv, aP3uv, aP4uv ] );
+					this.faceVertexUvs[ 0 ].push( [ aP1uv, aP3uv, aP4uv ] );
 
 				}
 

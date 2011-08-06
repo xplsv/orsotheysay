@@ -17,13 +17,13 @@ var Part8Effect = function ( camera, renderer ) {
 		scene2 = new THREE.Scene();
 		scene3 = new THREE.Scene();
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nebula.png' ) } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nebula.png' ) } ) );
 		particle.position.x = - 400;
 		particle.position.z = - 800;
 		particle.scale.x = particle.scale.y = 3;
 		scene1.addObject( particle );
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/atmosphere.png' ), blending: THREE.AdditiveBlending } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/atmosphere.png' ), blending: THREE.AdditiveBlending } ) );
 		particle.scale.x = particle.scale.y = 2.1;
 		scene1.addObject( particle );
 
@@ -37,10 +37,10 @@ var Part8Effect = function ( camera, renderer ) {
 			scene2.addObject( particle );
 		}
 
-		mesh = new THREE.Mesh( new Sphere( 200, 20, 20 ), new THREE.MeshBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/earth.jpg' ) } ) );
+		mesh = new THREE.Mesh( new Sphere( 200, 20, 20 ), new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/earth.jpg' ) } ) );
 		scene2.addObject( mesh );
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/atmosphere2.png' ), blending: THREE.AdditiveBlending } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/atmosphere2.png' ), blending: THREE.AdditiveBlending } ) );
 		particle.scale.x = particle.scale.y = 2.29;
 		scene3.addObject( particle );
 
