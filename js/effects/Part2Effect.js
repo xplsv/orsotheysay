@@ -12,15 +12,15 @@ var Part2Effect = function ( camera, renderer ) {
 		vector = new THREE.Vector3();
 		scene = new THREE.Scene();
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nebula.png' ) } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nebula.png' ) } ) );
 		particle.position.z = - 2000;
 		particle.scale.x = particle.scale.y = 4;
 		scene.addObject( particle );
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova.png' ), blending: THREE.AdditiveBlending } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova.png' ), blending: THREE.AdditiveBlending } ) );
 		scene.addObject( particle );
 
-		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
+		material = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
 
 		particles = [];
 

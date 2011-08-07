@@ -14,7 +14,7 @@ var Part5Effect = function ( camera, renderer ) {
 
 		scene = new THREE.Scene();
 
-		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
+		material = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
 
 		for (var i = 0; i < 500; i++) {
 
@@ -26,8 +26,8 @@ var Part5Effect = function ( camera, renderer ) {
 			scene.addObject( particle );
 		}
 
-		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova.png' ), blending: THREE.AdditiveBlending } );
-		material2 = new THREE.MeshBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/galaxy.jpg' ), blending: THREE.AdditiveBlending } );
+		material = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova.png' ), blending: THREE.AdditiveBlending } );
+		material2 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/galaxy.jpg' ), blending: THREE.AdditiveBlending } );
 
 		galaxies = [];
 

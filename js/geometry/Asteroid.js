@@ -153,7 +153,7 @@ var Asteroid = function () {
 		uv.push( new THREE.UV( u2, v2 ) );
 		uv.push( new THREE.UV( u3, v3 ) );
 		if ( u4 && v4 ) uv.push( new THREE.UV( u4, v4 ) );
-		scope.uvs.push( uv );
+		scope.uvs[ 0 ].push( uv );
 	}
 
 }

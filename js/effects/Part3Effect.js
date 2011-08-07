@@ -15,11 +15,11 @@ var Part3Effect = function ( camera, renderer ) {
 		vector = new THREE.Vector3();
 		scene = new THREE.Scene();
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova.png' ), blending: THREE.AdditiveBlending } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova.png' ), blending: THREE.AdditiveBlending } ) );
 		scene.addObject( particle );
 
-		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
-		material2 = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/galaxy32.png' ), blending: THREE.AdditiveBlending } );
+		material = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
+		material2 = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/galaxy32.png' ), blending: THREE.AdditiveBlending } );
 
 		particles = [];
 

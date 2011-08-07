@@ -13,7 +13,7 @@ var Part1Effect = function ( camera, renderer ) {
 
 		particles = [];
 
-		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
+		material = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
 
 		for ( var i = 0; i < 1000; i ++ ) {
 

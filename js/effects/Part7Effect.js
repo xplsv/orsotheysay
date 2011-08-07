@@ -13,11 +13,11 @@ var Part7Effect = function ( camera, renderer ) {
 		scene2 = new THREE.Scene();
 		scene3 = new THREE.Scene();
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/sun.png' ), blending: THREE.AdditiveBlending } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/sun.png' ), blending: THREE.AdditiveBlending } ) );
 		particle.scale.x = particle.scale.y = 5;
 		scene1.addObject( particle );
 
-		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
+		material = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
 
 		for (var i = 0; i < 1000; i++) {
 
@@ -29,7 +29,7 @@ var Part7Effect = function ( camera, renderer ) {
 			scene1.addObject( particle );
 		}
 
-		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/asteroid.png' ) } );
+		material = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/asteroid.png' ) } );
 
 		for (var i = 0; i < 200; i++) {
 
@@ -66,7 +66,7 @@ var Part7Effect = function ( camera, renderer ) {
 
 		}
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/sun2.png' ), blending: THREE.AdditiveBlending } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/sun2.png' ), blending: THREE.AdditiveBlending } ) );
 		particle.scale.x = particle.scale.y = 3;
 		scene3.addObject( particle );
 

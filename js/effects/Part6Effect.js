@@ -15,7 +15,7 @@ var Part6Effect = function ( camera, renderer ) {
 
 		scene = new THREE.Scene();
 
-		material = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
+		material = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/nova_particle.png' ), blending: THREE.AdditiveBlending } );
 
 		for ( var i = 0; i < 1000; i ++ ) {
 
@@ -27,11 +27,11 @@ var Part6Effect = function ( camera, renderer ) {
 			scene.addObject( particle );
 		}
 
-		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/sun.png' ), blending: THREE.AdditiveBlending } ) );
+		particle = new THREE.Particle( new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/sun.png' ), blending: THREE.AdditiveBlending } ) );
 		scene.addObject( particle );
 
-		material = new THREE.LineBasicMaterial( { color: 0x008080, opacity: 1, blending: THREE.AdditiveBlending } );
-		material2 = new THREE.ParticleBasicMaterial( { map: ImageUtils.loadTexture( 'files/textures/line_planet.png' ), blending: THREE.AdditiveBlending } );
+		material = new THREE.LineBasicMaterial( { color: 0x008080, opacity: 0.5, blending: THREE.AdditiveBlending } );
+		material2 = new THREE.ParticleBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'files/textures/line_planet.png' ), blending: THREE.AdditiveBlending } );
 
 		for ( var j = 0; j < greetings.length; j ++ ) {
 
@@ -60,7 +60,7 @@ var Part6Effect = function ( camera, renderer ) {
 			scene.addObject( particle );
 
 			var textMaterial = new THREE.ParticleBasicMaterial( { map: new THREE.Texture( createTextImage( greetings[ j ] ) ), blending: THREE.AdditiveBlending } );
-			textMaterial.offset.y = 35;
+			textMaterial.polygonOffset.y = 35;
 
 			particle = new THREE.Particle( textMaterial );
 			particle.position.x = Math.cos( rand ) * amplitude;
